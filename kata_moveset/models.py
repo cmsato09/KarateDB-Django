@@ -3,7 +3,7 @@ from django.db import models
 
 class Kata(models.Model):
 
-    class Series(models.Choices):
+    class Series(models.TextChoices):
         # more to add
         HEIAN = 'Heian'
         TEKKI = 'Tekki'
