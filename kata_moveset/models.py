@@ -12,7 +12,7 @@ class Kata(models.Model):
 
     name = models.CharField(max_length=30)
     series = models.CharField(max_length=30, choices=Series.choices)
-    hiragana = models.CharField(max_length=20) # Does CharField take utf-8 characters?
+    hiragana = models.CharField(max_length=20)
     kanji = models.CharField(max_length=10)
 
 
@@ -66,9 +66,9 @@ class Move(models.Model):
         INOUT = 'IO', 'in-out'
         OUTIN = 'OI', 'out-in'
 
-    kata_id = models.ForeignKey(Kata)
+    kata_id = models.ForeignKey(Kata, on_delete=models.CASCADE)
     move_number = models.IntegerField()
-    stance = models.ForeignKey(Stances)
+    stance = models.ForeignKey(Stances, on_delete=models.CASCADE)
     direction = models.CharField(max_length=2, choices=Direction.choices)
     lead_foot = models.CharField(max_length=1, choices=Leadfoot.choices)
     hip = models.CharField(max_length=1, choices=Hips.choices)
@@ -83,11 +83,11 @@ class Move(models.Model):
 class Technique(models.Model):
 
     class TechType(models.TextChoices):
-        PUNCH = 'P', 'punch'
+        PUNCH = 'PU', 'punch'
         Blocking = 'B', 'block'
         KICK = 'K', 'kick'
         STRIKE = 'S', 'strike'
-        PREP = 'P', 'prep'
+        PREP = 'PR', 'prep'
         OTHER = 'O', 'other'
 
     technique_name = models.CharField(max_length=30)
@@ -107,6 +107,6 @@ class TechniqueToMove(models.Model):
         GEDAN = 'G', 'gedan'
         OTHER = 'O', 'other'
 
-    move_id = models.ForeignKey(Move)
-    technique_id = models.ForeignKey(Technique)
+    move_id = models.ForeignKey(Move, on_delete=models.CASCADE)
+    technique_id = models.ForeignKey(Technique, on_delete=models.CASCADE)
     level = models.CharField(max_length=1, choices=Level.choices)
