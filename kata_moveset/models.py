@@ -16,9 +16,9 @@ class Kata(models.Model):
     kanji = models.CharField(max_length=10)
 
 
-class Stances(models.Model):
+class Stance(models.Model):
     stance_name = models.CharField(max_length=30)
-    description = models.TextField()
+    description = models.TextField(blank=True, default="")
     hiragana = models.CharField(max_length=20)
     kanji = models.CharField(max_length=10)
 
@@ -68,7 +68,7 @@ class Move(models.Model):
 
     kata_id = models.ForeignKey(Kata, on_delete=models.CASCADE)
     move_number = models.IntegerField()
-    stance = models.ForeignKey(Stances, on_delete=models.CASCADE)
+    stance = models.ForeignKey(Stance, on_delete=models.CASCADE)
     direction = models.CharField(max_length=2, choices=Direction.choices)
     lead_foot = models.CharField(max_length=1, choices=Leadfoot.choices)
     hip = models.CharField(max_length=1, choices=Hips.choices)
@@ -91,7 +91,7 @@ class Technique(models.Model):
         OTHER = 'O', 'other'
 
     technique_name = models.CharField(max_length=30)
-    description = models.TextField()
+    description = models.TextField(blank=True, default='')
     hiragana = models.CharField(max_length=20)
     kanji = models.CharField(max_length=10)
 
