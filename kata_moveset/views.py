@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 
 def home_page(request):
-    pass
+    return HttpResponse('<html><title>Karate Kata Database</title></html>')
