@@ -91,7 +91,8 @@ class Technique(models.Model):
         OTHER = 'O', 'other'
 
     technique_name = models.CharField(max_length=30)
-    technique_type = models.CharField(max_length=10, choices=TechType.choices)
+    technique_type = models.CharField(max_length=10, choices=TechType.choices,
+                                      default='O')
     description = models.TextField(blank=True, default='')
     hiragana = models.CharField(max_length=20)
     kanji = models.CharField(max_length=10)
