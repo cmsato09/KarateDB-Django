@@ -4,11 +4,11 @@ from django.db import models
 class Kata(models.Model):
 
     class Series(models.TextChoices):
-        # more to add
         HEIAN = 'Heian'
         TEKKI = 'Tekki'
         BASSAI = 'Bassai'
         KANKU = 'Kanku'
+        OTHER = 'Other'
 
     name = models.CharField(max_length=30)
     series = models.CharField(max_length=30, choices=Series.choices)
@@ -18,6 +18,7 @@ class Kata(models.Model):
 
 class Stance(models.Model):
     stance_name = models.CharField(max_length=30)
+    stance_initial = models.CharField(max_length=1, default='')
     description = models.TextField(blank=True, default="")
     hiragana = models.CharField(max_length=20)
     kanji = models.CharField(max_length=10)
@@ -92,7 +93,7 @@ class Technique(models.Model):
 
     technique_name = models.CharField(max_length=30)
     technique_type = models.CharField(max_length=10, choices=TechType.choices,
-                                      default='O')
+                                      default='O')  # would 'required=False' be better than using default?
     description = models.TextField(blank=True, default='')
     hiragana = models.CharField(max_length=20)
     kanji = models.CharField(max_length=10)
