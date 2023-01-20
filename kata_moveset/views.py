@@ -30,7 +30,6 @@ def upload_kata_file(request):
         io_string = io.StringIO(data_set)
         reader = csv.DictReader(io_string)
 
-        # moves = []
         for entry in reader:
             move = Move.objects.create(
                 kata_id=kata_obj,
@@ -58,9 +57,6 @@ def upload_kata_file(request):
                     technique_id=technique,
                     level=levels[level]
                 )
-
-            # moves.append(move)
-        # Move.objects.bulk_create(moves)
 
         messages.success(request, "Successfully uploaded move data")
         return redirect("KataDB:upload-kata-csvfile")  # TODO: go somewhere else
