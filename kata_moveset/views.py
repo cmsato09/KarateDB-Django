@@ -22,6 +22,8 @@ def upload_kata_file(request):
             stance.stance_initial: stance
             for stance in Stance.objects.all()
         }
+        # TODO: do this for the other enums as well for now (need to look for
+        # better way but might be source data issue, Django not to blame)
         speeds = {entry.label: entry.value for entry in Move.Speed}
         levels = {entry.label: entry.value for entry in TechniqueToMove.Level}
 
