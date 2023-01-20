@@ -15,6 +15,9 @@ class Kata(models.Model):
     hiragana = models.CharField(max_length=20)
     kanji = models.CharField(max_length=10)
 
+    def __str__(self):
+        return self.name
+
 
 class Stance(models.Model):
     stance_name = models.CharField(max_length=30)
@@ -22,6 +25,9 @@ class Stance(models.Model):
     description = models.TextField(blank=True, default="")
     hiragana = models.CharField(max_length=20)
     kanji = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.stance_name
 
 
 class Move(models.Model):
@@ -80,6 +86,9 @@ class Move(models.Model):
     breath = models.CharField(max_length=2, choices=Breathing.choices)
     kiai = models.BooleanField()
 
+    def __str__(self):
+        return str(self.move_number)
+
 
 class Technique(models.Model):
 
@@ -91,12 +100,15 @@ class Technique(models.Model):
         PREP = 'PR', 'prep'
         OTHER = 'O', 'other'
 
-    technique_name = models.CharField(max_length=30)
+    technique_name = models.CharField(max_length=30)  # TODO: unique=True
     technique_type = models.CharField(max_length=10, choices=TechType.choices,
                                       default='O')  # would 'required=False' be better than using default?
     description = models.TextField(blank=True, default='')
     hiragana = models.CharField(max_length=20)
     kanji = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.technique_name
 
 
 class TechniqueToMove(models.Model):
@@ -113,3 +125,6 @@ class TechniqueToMove(models.Model):
     move_id = models.ForeignKey(Move, on_delete=models.CASCADE)
     technique_id = models.ForeignKey(Technique, on_delete=models.CASCADE)
     level = models.CharField(max_length=1, choices=Level.choices)
+
+    def __str__(self):
+        return f"{self.move_id} {self.technique_id} {self.level}"
