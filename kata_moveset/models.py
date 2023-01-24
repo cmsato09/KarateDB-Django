@@ -109,7 +109,8 @@ class Move(models.Model):
     kiai = models.BooleanField()
 
     def __str__(self):
-        return f"{self.move_number}"
+        return f"{self.kata_id.name} {self.move_number} " \
+               f"{self.get_all_techniques_per_move()}"
 
     def get_all_techniques_per_move(self):
         return " + ".join([tech.technique_name for tech in self.technique.all()])
