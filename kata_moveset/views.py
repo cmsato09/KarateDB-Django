@@ -27,9 +27,8 @@ def upload_kata_file(request):
         speeds = {entry.label: entry.value for entry in Move.Speed}
         levels = {entry.label: entry.value for entry in TechniqueToMove.Level}
 
-
         csv_file = request.FILES['uploadKataCSV']
-        data_set = csv_file.read().decode('UTF-8')
+        data_set = csv_file.read().decode('utf-8-sig')
         io_string = io.StringIO(data_set)
         reader = csv.DictReader(io_string)
 
