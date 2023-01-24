@@ -25,5 +25,16 @@ class TechniqueAdmin(admin.ModelAdmin):
     ordering = ['pk', 'technique_type']
 
 
-admin.site.register(Move)
-admin.site.register(TechniqueToMove)
+@admin.register(Move)
+class MoveAdmin(admin.ModelAdmin):
+    list_display = ['kata_id', 'move_number', 'get_all_techniques_per_move']
+    list_filter = ['kata_id']
+    ordering = ['kata_id', 'move_number']
+
+
+@admin.register(TechniqueToMove)
+class TechniqueToMoveAdmin(admin.ModelAdmin):
+    list_display = ['move_id',
+                    'get_kata_name_and_move_num',
+                    'technique_id',
+                    'level']

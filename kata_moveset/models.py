@@ -30,6 +30,27 @@ class Stance(models.Model):
         return self.stance_name
 
 
+class Technique(models.Model):
+
+    class TechType(models.TextChoices):
+        PUNCH = 'PU', 'punch'
+        Blocking = 'B', 'block'
+        KICK = 'K', 'kick'
+        STRIKE = 'S', 'strike'
+        PREP = 'PR', 'prep'
+        OTHER = 'O', 'other'
+
+    technique_name = models.CharField(max_length=30, unique=True)
+    technique_type = models.CharField(max_length=10, choices=TechType.choices,
+                                      default='O')
+    description = models.TextField(blank=True, default='')
+    hiragana = models.CharField(max_length=20)
+    kanji = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f"{self.technique_name}"
+
+
 class Move(models.Model):
 
     class Direction(models.TextChoices):
@@ -75,6 +96,7 @@ class Move(models.Model):
 
     kata_id = models.ForeignKey(Kata, on_delete=models.CASCADE)
     move_number = models.IntegerField()
+    technique = models.ManyToManyField(Technique, through='TechniquetoMove')
     stance = models.ForeignKey(Stance, on_delete=models.CASCADE)
     direction = models.CharField(max_length=2, choices=Direction.choices)
     lead_foot = models.CharField(max_length=1, choices=Leadfoot.choices)
@@ -87,28 +109,10 @@ class Move(models.Model):
     kiai = models.BooleanField()
 
     def __str__(self):
-        return f"{Kata.name} {self.move_number} {Technique.technique_name}"
+        return f"{self.move_number}"
 
-
-class Technique(models.Model):
-
-    class TechType(models.TextChoices):
-        PUNCH = 'PU', 'punch'
-        Blocking = 'B', 'block'
-        KICK = 'K', 'kick'
-        STRIKE = 'S', 'strike'
-        PREP = 'PR', 'prep'
-        OTHER = 'O', 'other'
-
-    technique_name = models.CharField(max_length=30, unique=True)
-    technique_type = models.CharField(max_length=10, choices=TechType.choices,
-                                      default='O')
-    description = models.TextField(blank=True, default='')
-    hiragana = models.CharField(max_length=20)
-    kanji = models.CharField(max_length=10)
-
-    def __str__(self):
-        return f"{self.technique_name}"
+    def get_all_techniques_per_move(self):
+        return " + ".join([tech.technique_name for tech in self.technique.all()])
 
 
 class TechniqueToMove(models.Model):
@@ -127,4 +131,8 @@ class TechniqueToMove(models.Model):
     level = models.CharField(max_length=1, choices=Level.choices)
 
     def __str__(self):
-        return f"{self.move_id} {self.technique_id} {self.level}"
+        return f"{self.move_id.kata_id.name} {self.move_id.move_number} " \
+               f"{self.technique_id.technique_name} {self.level}"
+
+    def get_kata_name_and_move_num(self):
+        return f"{self.move_id.kata_id.name} {self.move_id.move_number}"
