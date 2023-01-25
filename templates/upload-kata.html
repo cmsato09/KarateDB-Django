@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Kata Moveset{% endblock %}
+
+{% block content %}
+    <h1>Upload Kata</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="uploadKataCSV" required>
+        <select name="kata_upload_choice">
+            {% for kata in kata_choices %}
+                <option value="{{ kata.id }}">{{ kata.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Upload</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,21 @@
+﻿Move #,direction,stance,lead foot,hips,tech type,tech subtype,active side,speed,snap/thrust,interm move,level of tech,breath,kiai
+1,W,F,L,H,B,gedanbarai,L,fast,T,Y,gedan,IO,
+2,W,F,R,S,P,oizuki,R,fast,T,N,chudan,IO,
+3,E,F,R,H,B,gedanbarai,R,fast,T,Y,gedan,IO,
+4,E,F,L,S,P,oizuki,L,fast,T,N,chudan,IO,
+5,N,F,L,H,B,gedanbarai,L,fast,T,Y,gedan,IO,
+6,N,F,R,S,P,oizuki,R,fast,T,N,chudan,IO,
+7,N,F,L,S,P,oizuki,L,fast,T,N,chudan,IO,
+8,N,F,R,S,P,oizuki,R,fast,T,N,chudan,IO,Y
+9,E,F,L,H,B,gedanbarai,L,fast,T,Y,gedan,IO,
+10,E,F,R,S,P,oizuki,R,fast,T,N,chudan,IO,
+11,W,F,R,H,B,gedanbarai,R,fast,T,Y,gedan,IO,
+12,W,F,L,S,P,oizuki,L,fast,T,N,chudan,IO,
+13,S,F,L,H,B,gedanbarai,L,fast,T,Y,gedan,IO,
+14,S,F,R,S,P,oizuki,R,fast,T,N,chudan,IO,
+15,S,F,L,S,P,oizuki,L,fast,T,N,chudan,IO,
+16,S,F,R,S,P,oizuki,R,fast,T,N,chudan,IO,Y
+17,W,F,L,H,B,gedanbarai,L,fast,T,Y,gedan,IO,
+18,W,F,R,S,P,oizuki,R,fast,T,N,chudan,IO,
+19,E,F,R,H,B,gedanbarai,R,fast,T,Y,gedan,IO,
+20,E,F,L,S,P,oizuki,L,fast,T,N,chudan,IO,
