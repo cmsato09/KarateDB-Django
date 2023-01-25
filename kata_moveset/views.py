@@ -16,9 +16,9 @@ def upload_kata_file(request):
 
     if request.method == "POST":
         # User uploads csv file which contains the moveset for a specific kata
-        # specified by the user (kata_id_value)
-        kata_id = int(request.POST["kata_upload_choice"])
-        kata_obj = Kata.objects.get(id=kata_id)
+        # specified by the user (kata_post_id)
+        kata_post_id = int(request.POST["kata_upload_choice"])
+        kata_obj = Kata.objects.get(id=kata_post_id)
 
         stances = {
             stance.stance_initial: stance
@@ -48,14 +48,14 @@ def upload_kata_file(request):
                 kiai=bool(entry['kiai']),
             )
 
-            technique = Technique.objects.get(
-                technique_name__iexact=entry['tech subtype'])
-
+            # Many-to-Many TechniquetoMove entry set-up
+            techniques = [Technique.objects.get(technique_name__iexact=waza)
+                          for waza in entry['tech subtype'].split("+")]
             levels_of_tech = entry["level of tech"].split("+")
-            for level in levels_of_tech:
+            for tech, level in zip(techniques, levels_of_tech):
                 TechniqueToMove.objects.create(
                     move_id=move,
-                    technique_id=technique,
+                    technique_id=tech,
                     level=levels[level]
                 )
 
