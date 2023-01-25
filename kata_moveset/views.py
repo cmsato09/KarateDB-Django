@@ -49,9 +49,12 @@ def upload_kata_file(request):
             )
 
             # Many-to-Many TechniquetoMove entry set-up
-            techniques = [Technique.objects.get(technique_name__iexact=waza)
-                          for waza in entry['tech subtype'].split("+")]
+            wazas = [tech.title() for tech in entry['tech subtype'].split("+")]
+            techniques = Technique.objects.filter(
+                technique_name__in=wazas)
+
             levels_of_tech = entry["level of tech"].split("+")
+
             for tech, level in zip(techniques, levels_of_tech):
                 TechniqueToMove.objects.create(
                     move_id=move,

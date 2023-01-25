@@ -113,8 +113,9 @@ class Move(models.Model):
                f"{self.get_all_techniques_per_move()}"
 
     def get_all_techniques_per_move(self):
-        return " + ".join([tech.technique_name for tech in self.technique.all()])
-
+        return " + ".join(
+            [tech.technique_name for tech in self.technique.all()]
+        )
 
 class TechniqueToMove(models.Model):
     """
