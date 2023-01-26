@@ -11,5 +11,25 @@
 <body>
     {% block content %}
     {% endblock %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="" id="messages">
+      {% for message in messages %}
+        <p style="color: {% if message.tags == 'success' %}green{% elif message.tags == 'error' %}red{% endif %}">
+          {% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}
+        </p>
+      {% endfor %}
+    </div>
+
+    {% endif %}
 </body>
 </html>

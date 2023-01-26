@@ -1,8 +1,9 @@
 import csv
 import io
 
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Kata, Move, Stance, Technique, TechniqueToMove
 
 
@@ -53,7 +54,7 @@ def upload_kata_file(request):
             techniques = Technique.objects.filter(
                 technique_name__in=wazas)
 
-            levels_of_tech = entry["level of tech"].split("+")
+            levels_of_tech = entry['level of tech'].split("+")
 
             for tech, level in zip(techniques, levels_of_tech):
                 TechniqueToMove.objects.create(
@@ -61,6 +62,8 @@ def upload_kata_file(request):
                     technique_id=tech,
                     level=levels[level]
                 )
+        messages.success(request, "Successfully uploaded CSV file")
+        return HttpResponseRedirect("")
 
     context = {
         'kata_choices': Kata.objects.all(),

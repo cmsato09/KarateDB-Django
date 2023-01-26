@@ -117,6 +117,7 @@ class Move(models.Model):
             [tech.technique_name for tech in self.technique.all()]
         )
 
+
 class TechniqueToMove(models.Model):
     """
     Many-to-Many association table between Technique and Move
