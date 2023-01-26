@@ -1,10 +1,12 @@
 import csv
 import io
+import django_filters
 import django_tables2 as tables
 
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django_filters.views import FilterView
 from .models import Kata, Move, Stance, Technique, TechniqueToMove
 
 
@@ -77,10 +79,19 @@ class MoveSetTable(tables.Table):
     class Meta:
         model = Move
         template_name = "django_tables2/bootstrap.html"
-        fields = ('kata_id', 'move_number', 'technique', 'stance')
+        fields = ('kata_id', 'move_number', 'technique', 'stance', 'direction',
+                  'lead_foot', 'hip', 'active_side', 'speed', 'snapthrust',
+                  'interm_move', 'breath', 'kiai')
 
 
-class KataTableView(tables.SingleTableView):
+# class KataTableView(tables.SingleTableView):
+#     model = Move
+#     table_class = MoveSetTable
+#     template_name = 'kata-table.html'
+
+
+class KataTableFilter(tables.SingleTableMixin, FilterView):
     model = Move
     table_class = MoveSetTable
     template_name = 'kata-table.html'
+
