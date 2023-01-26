@@ -1,5 +1,6 @@
 import csv
 import io
+import django_tables2 as tables
 
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -70,3 +71,16 @@ def upload_kata_file(request):
     }
 
     return render(request, 'upload-kata.html', context)
+
+
+class MoveSetTable(tables.Table):
+    class Meta:
+        model = Move
+        template_name = "django_tables2/bootstrap.html"
+        fields = ('kata_id', 'move_number', 'technique', 'stance')
+
+
+class KataTableView(tables.SingleTableView):
+    model = Move
+    table_class = MoveSetTable
+    template_name = 'kata-table.html'
