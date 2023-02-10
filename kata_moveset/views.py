@@ -1,8 +1,12 @@
 import csv
 import io
+import django_filters
+import django_tables2 as tables
 
+from django.contrib import messages
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django_filters.views import FilterView
 from .models import Kata, Move, Stance, Technique, TechniqueToMove
 
 
@@ -53,7 +57,7 @@ def upload_kata_file(request):
             techniques = Technique.objects.filter(
                 technique_name__in=wazas)
 
-            levels_of_tech = entry["level of tech"].split("+")
+            levels_of_tech = entry['level of tech'].split("+")
 
             for tech, level in zip(techniques, levels_of_tech):
                 TechniqueToMove.objects.create(
@@ -61,9 +65,40 @@ def upload_kata_file(request):
                     technique_id=tech,
                     level=levels[level]
                 )
+        messages.success(request, "Successfully uploaded CSV file")
+        return HttpResponseRedirect("")
 
     context = {
         'kata_choices': Kata.objects.all(),
     }
 
     return render(request, 'upload-kata.html', context)
+
+
+class MoveSetTable(tables.Table):
+    class Meta:
+        model = Move
+        template_name = "django_tables2/bootstrap.html"
+        fields = ('kata_id', 'move_number', 'technique', 'stance', 'direction',
+                  'lead_foot', 'hip', 'active_side', 'speed', 'snapthrust',
+                  'interm_move', 'breath', 'kiai')
+
+
+# class KataTableView(tables.SingleTableView):
+#     model = Move
+#     table_class = MoveSetTable
+#     template_name = 'kata-table.html'
+
+class KataFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Move
+        fields = ['kata_id', 'technique', 'stance', 'lead_foot', 'hip']
+
+
+class KataTableFilter(tables.SingleTableMixin, FilterView):
+    model = Move
+    table_class = MoveSetTable
+    template_name = 'kata-table.html'
+
+    filterset_class = KataFilter
