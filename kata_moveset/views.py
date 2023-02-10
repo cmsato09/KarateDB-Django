@@ -89,9 +89,16 @@ class MoveSetTable(tables.Table):
 #     table_class = MoveSetTable
 #     template_name = 'kata-table.html'
 
+class KataFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Move
+        fields = ['kata_id', 'technique', 'stance', 'lead_foot', 'hip']
+
 
 class KataTableFilter(tables.SingleTableMixin, FilterView):
     model = Move
     table_class = MoveSetTable
     template_name = 'kata-table.html'
 
+    filterset_class = KataFilter
