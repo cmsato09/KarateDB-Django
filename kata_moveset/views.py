@@ -11,9 +11,7 @@ from .models import Kata, Move, Stance, Technique, TechniqueToMove
 
 
 def home_page(request):
-    return HttpResponse('<html><title>Karate Kata Database</title>'
-                        '<h1>Hello World!</h1>'
-                        '</html>')
+    return render(request, 'home.html')
 
 
 def upload_kata_file(request):
