@@ -5,14 +5,16 @@
 {% block title %}Kata Table{% endblock %}
 
 {% block content %}
+  <div class="container mt-4">
+    {% if filter %}
+    <form action="" method="get" class="row row-cols-lg-auto g-1 align-items-start">
+      {% bootstrap_form filter.form layout="" %}
+      <div class="align-self-end">
+        {% bootstrap_button 'filter' %}
+      </div>
+    </form>
+    {% endif %}
 
-  {% if filter %}
-  <form action="" method="get" class="form form-inline">
-    {% bootstrap_form filter.form layout='inline' %}
-    {% bootstrap_button 'filter' %}
-  </form>
-  {% endif %}
-
-  {% render_table table 'django_tables2/bootstrap4.html' %}
-
+    {% render_table table 'django_tables2/bootstrap4.html' %}
+  </div>
 {% endblock %}
