@@ -2,9 +2,11 @@
 {% load render_table from django_tables2 %}
 {% load bootstrap5 %}
 
-{% block title %}Techniques Table{% endblock %}
+{% block title %}Techniques List{% endblock %}
 
 {% block content %}
-
-{% render_table table 'django_tables2/bootstrap4.html' %}
+<div class="container mt-4">
+  <h1>Techniques List</h1>
+  {% render_table table 'django_tables2/bootstrap4.html' %}
+</div>
 {% endblock %}
