@@ -14,10 +14,10 @@ data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria
           <a class="nav-link active" aria-current="page" href="{% url 'KataDB:homepage' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Kata List</a>
+          <a class="nav-link" href="{% url 'KataDB:kata-table' %}">Kata List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Techniques</a>
+          <a class="nav-link" href="{% url 'KataDB:tech-table' %}">Techniques</a>
         </li>
       </ul>
     </div>

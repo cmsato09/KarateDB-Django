@@ -73,7 +73,7 @@ def upload_kata_file(request):
     return render(request, 'upload-kata.html', context)
 
 
-class MoveSetTable(tables.Table):
+class MovesetTable(tables.Table):
     class Meta:
         model = Move
         template_name = "django_tables2/bootstrap.html"
@@ -82,21 +82,42 @@ class MoveSetTable(tables.Table):
                   'interm_move', 'breath', 'kiai')
 
 
-# class KataTableView(tables.SingleTableView):
-#     model = Move
-#     table_class = MoveSetTable
-#     template_name = 'kata-table.html'
+class TechniqueTable(tables.Table):
+    class Meta:
+        model = Technique
+        template_name = "django_tables2/bootstrap.html"
+        fields = ('technique_name', 'kanji', 'technique_type', 'description')
 
-class KataFilter(django_filters.FilterSet):
+class KataTable(tables.Table):
+    class Meta:
+        model = Kata
+        template_name = "django_tables2/bootstrap.html"
+        fields = ('name', 'kanji', 'series')
+
+
+class TechniqueTableView(tables.SingleTableView):
+    model = Technique
+    table_class = TechniqueTable
+    template_name = 'tech-table.html'
+
+
+class KataTableView(tables.SingleTableView):
+    model = Kata
+    table_class = KataTable
+    template_name = 'kata-table.html'
+    paginate_by = 30
+
+
+class MovesetFilter(django_filters.FilterSet):
 
     class Meta:
         model = Move
         fields = ['kata_id', 'technique', 'stance', 'lead_foot', 'hip']
 
 
-class KataTableFilter(tables.SingleTableMixin, FilterView):
+class MovesetTableFilterView(tables.SingleTableMixin, FilterView):
     model = Move
-    table_class = MoveSetTable
-    template_name = 'kata-table.html'
+    table_class = MovesetTable
+    template_name = 'moveset-table.html'
 
-    filterset_class = KataFilter
+    filterset_class = MovesetFilter
