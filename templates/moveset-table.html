@@ -7,7 +7,7 @@
 {% block content %}
   <div class="container mt-4">
     {% if filter %}
-    <form action="" method="get" class="row row-cols-lg-auto g-1 align-items-start">
+    <form action="" method="GET" class="row row-cols-lg-auto g-1 align-items-start">
       {% bootstrap_form filter.form layout="" %}
       <div class="align-self-end">
         {% bootstrap_button 'filter' %}

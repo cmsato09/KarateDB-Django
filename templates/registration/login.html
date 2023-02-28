@@ -16,14 +16,14 @@
             {% endif %}
 
             <div class="login-form">
-              <form action="{% url 'login' %}" method="post">
+              <form action="{% url 'login' %}" method="POST">
                 {{ form.as_p }}
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ next }}">
                 <p><input type="submit" value="Login"></p>
               </form>
             </div>
-
+            <p><a href="{% url 'password_reset' %}">Forget your password?</a></p>
           </div>
         
         </div>
