@@ -4,7 +4,7 @@
 
 {% block content %}
   <h1>Upload Kata</h1>
-  <form method="post" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="file" name="uploadKataCSV" required>
     <select name="kata_upload_choice">
