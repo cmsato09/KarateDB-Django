@@ -88,6 +88,14 @@ class TechniqueTable(tables.Table):
         template_name = "django_tables2/bootstrap.html"
         fields = ('technique_name', 'kanji', 'technique_type', 'description')
 
+
+class StanceTable(tables.Table):
+    class Meta:
+        model = Stance
+        template_name = "django_tables2/bootstrap.html"
+        fields = ('stance_name', 'kanji', 'description')
+
+
 class KataTable(tables.Table):
     class Meta:
         model = Kata
@@ -100,6 +108,11 @@ class TechniqueTableView(tables.SingleTableView):
     table_class = TechniqueTable
     template_name = 'tech-table.html'
 
+
+class StanceTableView(tables.SingleTableView):
+    model = Stance
+    table_class = StanceTable
+    template_name = 'kata_moveset/stance-table.html'
 
 class KataTableView(tables.SingleTableView):
     model = Kata
