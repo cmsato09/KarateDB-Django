@@ -70,7 +70,7 @@ def upload_kata_file(request):
         'kata_choices': Kata.objects.all(),
     }
 
-    return render(request, 'upload-kata.html', context)
+    return render(request, 'kata_moveset/upload-kata.html', context)
 
 
 class MovesetTable(tables.Table):
@@ -106,7 +106,7 @@ class KataTable(tables.Table):
 class TechniqueTableView(tables.SingleTableView):
     model = Technique
     table_class = TechniqueTable
-    template_name = 'tech-table.html'
+    template_name = 'kata_moveset/tech-table.html'
 
 
 class StanceTableView(tables.SingleTableView):
@@ -117,7 +117,7 @@ class StanceTableView(tables.SingleTableView):
 class KataTableView(tables.SingleTableView):
     model = Kata
     table_class = KataTable
-    template_name = 'kata-table.html'
+    template_name = 'kata_moveset/kata-table.html'
     paginate_by = 30
 
 
@@ -131,6 +131,6 @@ class MovesetFilter(django_filters.FilterSet):
 class MovesetTableFilterView(tables.SingleTableMixin, FilterView):
     model = Move
     table_class = MovesetTable
-    template_name = 'moveset-table.html'
+    template_name = 'kata_moveset/moveset-table.html'
 
     filterset_class = MovesetFilter
