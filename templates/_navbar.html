@@ -20,18 +20,27 @@ data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria
           <a class="nav-link" href="{% url 'KataDB:tech-table' %}">Techniques</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'KataDB:stance-table' %}">Stances</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'KataDB:kata-moveset-table' %}">Movesets</a>
         </li>
       </ul>
       
-      <span class="user">
+      <ul class="navbar-nav ms-auto">
         {% if request.user.is_authenticated %}
-          <p>Profile</p>
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          <li>
+            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
         {% else %}
-          <a class="nav-link" href="{% url 'login' %}">Login</a>
+          <li>
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
         {% endif %}
-      </span>
+      </ul>
 
     </div>
 
