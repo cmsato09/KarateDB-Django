@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load bootstrap5 %}
+
+{% block title %}Update Technique{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Update Technique</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="SAVE CHANGES" />
+  </form>
+</div>
+{% endblock %}

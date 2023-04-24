@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home_page, upload_kata_file, MovesetTableFilterView, TechniqueTableView, KataTableView, StanceTableView
+from .views import home_page, upload_kata_file, MovesetTableFilterView, TechniqueTableView, KataTableView, StanceTableView, TechniqueCreateFormView, TechniqueUpdateFormView
 
 app_name = 'KataDB'
 
@@ -10,4 +10,6 @@ urlpatterns = [
     path('tech-table/', TechniqueTableView.as_view(), name='tech-table'),
     path('kata-table/', KataTableView.as_view(), name='kata-table'),
     path('stance-table/', StanceTableView.as_view(), name='stance-table'),
+    path('tech-create/', TechniqueCreateFormView.as_view(), name='tech-create'),
+    path('tech-update/<int:pk>/,', TechniqueUpdateFormView.as_view(), name='tech-update'),
 ]

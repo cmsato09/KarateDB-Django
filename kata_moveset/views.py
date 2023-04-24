@@ -4,11 +4,15 @@ import django_filters
 import django_tables2 as tables
 
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django_filters.views import FilterView
+from django.urls import reverse_lazy
 from .models import Kata, Move, Stance, Technique, TechniqueToMove
 
+from .forms import TechniqueCreateForm
 
 def home_page(request):
     return render(request, 'home.html')
@@ -134,3 +138,21 @@ class MovesetTableFilterView(tables.SingleTableMixin, FilterView):
     template_name = 'kata_moveset/moveset-table.html'
 
     filterset_class = MovesetFilter
+
+
+class TechniqueCreateFormView(LoginRequiredMixin, CreateView):
+    form_class = TechniqueCreateForm
+    template_name = 'kata_moveset/technique-create.html'
+    success_url = reverse_lazy('KataDB:tech-table')
+
+class TechniqueUpdateFormView(LoginRequiredMixin, UpdateView):
+    model = Technique
+    fields = [
+        'technique_name', 
+        'technique_type', 
+        'description', 
+        'hiragana', 
+        'kanji'
+    ]
+    template_name = 'kata_moveset/technique-update.html'
+    success_url = reverse_lazy('KataDB:tech-table')
