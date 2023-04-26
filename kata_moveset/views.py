@@ -4,6 +4,7 @@ import django_filters
 import django_tables2 as tables
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render
@@ -87,10 +88,11 @@ class MovesetTable(tables.Table):
 
 
 class TechniqueTable(tables.Table):
+    update = tables.LinkColumn("KataDB:tech-update", text="Update", args=[tables.A('pk')], verbose_name="Update")
     class Meta:
         model = Technique
         template_name = "django_tables2/bootstrap.html"
-        fields = ('technique_name', 'kanji', 'technique_type', 'description')
+        fields = ('technique_name', 'kanji', 'technique_type', 'description', 'update')
 
 
 class StanceTable(tables.Table):
